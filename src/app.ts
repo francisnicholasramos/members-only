@@ -29,12 +29,12 @@ app.use(
     secret: process.env.SESSION_SECRET as string,
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        secure: process.env.NODE_ENV === "production",
-        httpOnly: true,
-        sameSite: "lax",
-        maxAge: 24 * 60 * 60 * 1000
-    }
+    // cookie: {
+    //     secure: process.env.NODE_ENV === "production",
+    //     httpOnly: true,
+    //     sameSite: "lax",
+    //     maxAge: 24 * 60 * 60 * 1000
+    // }
   })
 );
 
