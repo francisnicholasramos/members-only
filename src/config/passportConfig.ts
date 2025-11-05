@@ -5,7 +5,10 @@ import {supabase} from "../db/client";
 
 passport.use(
     new LocalStrategy(
-        async (username, password, done) => { // first two parameters should be the same to input 'name' attribute
+        async (
+            username: string, 
+            password:string, 
+            done: (error: any, user?: any, options?: { message: string }) => void) => { // first two parameters should be the same to input 'name' attribute
         try {
             const {data: user, error } = await supabase 
                 .from("users")
@@ -34,13 +37,16 @@ passport.use(
     })
 );
 
-passport.serializeUser((user: any, done) => {
-    console.log("serializeUser", user.id);
+type SerializeDone = (err: any, id?: number) => void;
+type DeserializeDone = (err: any, user?: any) => void;
+
+passport.serializeUser((user: any, done: SerializeDone) => {
+    // console.log("serializeUser", user.id);
     done(null, user.id)
 })
 
-passport.deserializeUser(async (id: number, done) => {
-    console.log("deserializeUser", id);
+passport.deserializeUser(async (id: number, done: DeserializeDone) => {
+    // console.log("deserializeUser", id);
     try {
         const { data: user, error } = await supabase
         .from("users")
