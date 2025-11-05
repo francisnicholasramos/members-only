@@ -4,11 +4,11 @@ import path from "path";
 import passport from "./config/passportConfig";
 import cookieParser from "cookie-parser";
 
-import { router as index } from "../src/routes/indexRoute";
-import { router as signup } from "../src/routes/signUpRoutes";
-import { router as login } from "../src/routes/loginRoute";
-import { router as postMessage } from "../src/routes/postMessageRoute";
-import { router as members } from "../src/routes/membersRoute";
+import { router as index } from "./routes/indexRoute";
+import { router as signup } from "./routes/signUpRoutes";
+import { router as login } from "./routes/loginRoute";
+import { router as postMessage } from "./routes/postMessageRoute";
+import { router as members } from "./routes/membersRoute";
 
 const app = express();
 const port = 3000;
