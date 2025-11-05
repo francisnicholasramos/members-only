@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Login</title>
+        <link href="/styles/styles.css" rel="stylesheet">
+    </head>
+    <body>
+      <div class="general-form">
+        <h2>Login</h2>
+        <form action="/login" method="POST">
+          <label>Username</label>
+          <input type="text" name="username" />
+
+          <label>Password</label>
+          <input type="password" name="password" />
+
+          <button type="submit">Submit</button>
+          <% if (typeof error !== "undefined" && error) { %>
+          <p class="error"><%= error %></p>
+          <% } %>
+        </form>
+
+        <a href="/signup" class="register">Sign up</a>
+
+        <div style="margin-bottom: 10px; text-align:center;">OR</div>
+
+        <form action="/try" method="POST">
+          <button type="submit">Dummy user</button>
+        </form>
+
+      </div>
+    </body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Curious meow</title>
+        <link href="/styles/styles.css" rel="stylesheet">
+    </head>
+    <body>
+      <%- include('partials/header') %>
+      <div class="container">
+
+          <div id="myModal" class="modal">
+              <div class="modal-content">
+                  <span id="closeModalBtn" class="close">&times;</span>
+
+                  <form action="/post-message" method="POST">
+                      <input type="text" name="title" placeholder="Title" />
+                      <textarea name="message" placeholder="Share your thoughts..."></textarea>
+                      <button type="submit">Submit</button>
+                  </form>
+              </div>
+          </div>
+
+          <div class="openModalBtn">
+              <button id="openModalBtn">
+                  Write a message
+              </button>
+          </div>
+
+        <% messages.forEach(message => { %>
+        <div class="messages">
+            <h4><%= message.title %></h4>
+            <p><%= message.message %></p>
+            <p class="sender">
+              <span>Sent by: </span>
+              <%= message.author_name %>
+            </p>
+        </div>
+        <% }) %>
+
+        <!-- pagination -->
+        <div class="pagination">
+          <% 
+            const maxButtons = 3;
+            let startPage = Math.max(1, page - Math.floor(maxButtons / 2));
+            let endPage = Math.min(totalPages, startPage + maxButtons - 1);
+            if (endPage - startPage + 1 < maxButtons) {
+              startPage = Math.max(1, endPage - maxButtons + 1);
+            }
+          %>
+
+          <% if (page > 1) { %>
+            <button onclick="location.href='<%= baseUrl %>?page=1'">First</button>
+            <button onclick="location.href='<%= baseUrl %>?page=<%= page - 1 %>'">Prev</button>
+          <% } %>
+
+          <% for (let i = startPage; i <= endPage; i++) { %>
+            <button
+              onclick="location.href='<%= baseUrl %>?page=<%= i %>'"
+              class="<%= i === page ? 'active' : '' %>">
+              <%= i %>
+            </button>
+          <% } %>
+
+          <% if (page < totalPages) { %>
+            <button onclick="location.href='<%= baseUrl %>?page=<%= page + 1 %>'">Next</button>
+            <button onclick="location.href='<%= baseUrl %>?page=<%= totalPages %>'">Last</button>
+          <% } %>
+        </div>
+
+      </div>
+    </body>
+</html>
+
+<script src="/modal.js"></script>
