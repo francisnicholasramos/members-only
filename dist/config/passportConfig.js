@@ -31,11 +31,11 @@ passport_1.default.use(new passport_local_1.Strategy(async (username, password, 
     }
 }));
 passport_1.default.serializeUser((user, done) => {
-    console.log("serializeUser", user.id);
+    // console.log("serializeUser", user.id);
     done(null, user.id);
 });
 passport_1.default.deserializeUser(async (id, done) => {
-    console.log("deserializeUser", id);
+    // console.log("deserializeUser", id);
     try {
         const { data: user, error } = await client_1.supabase
             .from("users")
