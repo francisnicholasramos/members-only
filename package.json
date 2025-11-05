@@ -7,6 +7,14 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.77.0",
+    "@types/bcrypt": "^6.0.0",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/express": "^5.0.5",
+    "@types/express-session": "^1.18.2",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^24.10.0",
+    "@types/passport": "^1.0.17",
+    "@types/passport-local": "^1.0.38",
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.2.3",
@@ -17,7 +25,8 @@
     "jsonwebtoken": "^9.0.2",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.10",
