@@ -10,10 +10,10 @@ Live: https://members-only-jlk8.onrender.com
 - Temporary Access Pass — Non-admin users can enter a secret code to temporarily reveal the identity of message senders.
 
 ## Tech Stack and Library used
-Typescript
-ExpressJS
-PassportJs (authentication)
-Supabase
-EJS (Embedded Javascript) 
-Bcrypt (for hashing)
-Token handling (jwt)
+- Typescript
+- ExpressJS
+- PassportJs (authentication)
+- Supabase
+- EJS (Embedded Javascript) 
+- Bcrypt (for hashing)
+- Token handling (jwt)
