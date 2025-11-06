@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from "express";
-import {MessageType} from "../types/SchemaTypes";
+import {MessageType, UserType} from "../types/SchemaTypes";
 import {postMessage, displayAllMessage, getAllUsers} from "../db/queries"; import {validationResult} from "express-validator";
 import {supabase} from "../db/client";
 
@@ -12,7 +12,7 @@ export function isAuthenticatedUser(req: Request, res: Response) {
 }
 
 export async function postNewMessage(req: Request, res: Response, next: NextFunction) { try { const errors = validationResult(req);
-
+      const user = req.user as UserType;
         if (!errors.isEmpty()) {
             res.status(400).send(errors.mapped())
             return;
@@ -23,7 +23,7 @@ export async function postNewMessage(req: Request, res: Response, next: NextFunc
         const inputs: MessageType = {
             title: req.body.title,
             message: req.body.message,
-            author: req.user.id
+            author: user.id
         }
 
         await postMessage(inputs);
@@ -36,6 +36,7 @@ export async function postNewMessage(req: Request, res: Response, next: NextFunc
 
 export async function displayMessage(req: Request, res: Response) {
     try {
+        const user = req.user as UserType;
         const page = parseInt((req.query.page as string) ?? "1", 10);
         const limit = 5;
         const offset = (page - 1) * limit;
@@ -49,10 +50,10 @@ export async function displayMessage(req: Request, res: Response) {
             return acc;
         }, {} as Record<number, string>);
 
-        const isAdmin = req.user?.privilege === 'admin'
+        const isAdmin = user?.privilege === 'admin'
 
         const tempAccess = (req as any).decoded
-        const vipAccess = tempAccess && tempAccess.userId === req.user?.id;
+        const vipAccess = tempAccess && tempAccess.userId === user?.id;
 
         console.log('temporary access: ',tempAccess)
 
@@ -63,7 +64,7 @@ export async function displayMessage(req: Request, res: Response) {
             author_name: 
               isAdmin || vipAccess
                 ? userMap[msg.author_name]         // if
-                : msg.author_name === req.user?.id // else if ()
+                : msg.author_name === user?.id // else if ()
                 ? userMap[msg.author_name]         // else if {}
                 : "Anonymous"                      // else
         }));

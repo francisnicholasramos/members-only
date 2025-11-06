@@ -37,16 +37,11 @@ passport.use(
     })
 );
 
-type SerializeDone = (err: any, id?: number) => void;
-type DeserializeDone = (err: any, user?: any) => void;
-
-passport.serializeUser((user: any, done: SerializeDone) => {
-    // console.log("serializeUser", user.id);
+passport.serializeUser((user: any, done: (err: any, id?: number) => void) => {
     done(null, user.id)
 })
 
-passport.deserializeUser(async (id: number, done: DeserializeDone) => {
-    // console.log("deserializeUser", id);
+passport.deserializeUser(async (id: number, done:(err: any, user?: any) => void) => {
     try {
         const { data: user, error } = await supabase
         .from("users")

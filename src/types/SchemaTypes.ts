@@ -8,3 +8,8 @@ export type MessageType = {
     message: string;
     author: number;
 }
+
+export interface UserType {
+  id: number;
+  privilege: string;
+}

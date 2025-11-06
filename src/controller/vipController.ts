@@ -1,18 +1,20 @@
 import {Request, Response, NextFunction} from "express";
 import {updateUserToken} from "../db/queries";
 import jwt from "jsonwebtoken";
+import {UserType} from "../types/SchemaTypes";
 
 const SECRET = process.env.JWT_TOKEN as string;
 
 export async function tokenizeUser(req: Request, res: Response) {
   try {
-    const userId = Number(req.user?.id);
+    const user = req.user as UserType;
+    const userId = Number(user?.id);
 
     const token = jwt.sign({userId}, SECRET, {expiresIn: "90s"});
 
     const expiresAt: Date = new Date(Date.now() + 90 * 1000)
 
-    if (req.user?.privilege === 'admin') {
+    if (user?.privilege === 'admin') {
         res.redirect("/")
         return; 
     }
